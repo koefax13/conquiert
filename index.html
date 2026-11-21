@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Conquête de l’Europe : simulation de stratégie</title>
+<meta name="description" content="Simulation de conquête de l’Europe : population, capitales, alliances et diplomatie. Choisissez votre pays ou regardez la partie comme un film.">
+<meta name="theme-color" content="#0a1d2c">
+<meta property="og:type" content="website">
+<meta property="og:title" content="Conquête de l’Europe">
+<meta property="og:description" content="Prenez les capitales, nouez des alliances et devenez l’unique maître de l’Europe.">
+<meta property="og:locale" content="fr_FR">
+<link rel="icon" href="favicon.svg" type="image/svg+xml">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:wght@400;700;800&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="style.css">
+</head>
+<body>
+<h1>Conquête de l’Europe</h1>
+<p class="sub">Les pays d’Europe se disputent le continent. Prendre la capitale d’un pays le fait s’effondrer : le dernier debout règne sur l’Europe. Choisissez votre pays et négociez avec les autres, ou regardez la partie comme un film.</p>
+<div class="stage"><canvas id="c"></canvas><div class="hud" id="hud"></div><div class="tip" id="tip"></div><div class="toast" id="toast"></div><div class="log" id="log"></div></div>
+<div class="me" id="me"><span id="me-n"></span><span class="inf" id="me-i"></span><span class="st">Posture <button data-st="0" aria-pressed="false">Offensive</button><button data-st="1" aria-pressed="true">Équilibrée</button><button data-st="2" aria-pressed="false">Défensive</button></span></div>
+<canvas id="tl" style="display:block;width:100%;border-radius:8px;margin-top:10px;background:#0a1d2c"></canvas><div class="note" style="margin:4px 0 0">Part du territoire de chaque pays au fil du temps</div>
+<div class="bar">
+<button id="pp" aria-pressed="false">Pause</button>
+<button data-s="1" aria-pressed="true">×1</button>
+<button data-s="3" aria-pressed="false">×3</button>
+<button data-s="8" aria-pressed="false">×8</button>
+<button id="nw">Nouvelle partie</button>
+</div>
+<div class="legend"><span>Luminosité : population<i class="grad"></i></span><span>★ capitale</span><span>✕ capitale tombée</span><span>Anneau rouge : siège</span><span>Contour doré : votre pays</span><span>▨ relief : défense ×1,5</span><span><span style="display:inline-block;width:14px;height:3px;background:#96cdf0;margin-right:5px;vertical-align:middle"></span>fleuve : défense ×1,25</span><span>Flèche colorée : conquête, blanche : attaque repoussée</span><span>Touchez une zone pour le détail</span><span>Cliquez sur un pays (carte ou classement) pour négocier</span></div>
+<div class="rows" id="rows"></div><div class="note" id="al"></div>
+<p class="note">Population par zone : population nationale (Natural Earth) répartie autour des grandes villes, fixe, et transmise au conquérant avec la zone. 1 tour = 1 semaine. Le PIB par habitant (valeurs approximatives, vers 2023) donne la qualité des armées. Chaque pays a un indice de puissance militaire approximatif et un tempérament tiré au hasard à chaque partie ; la France, le Royaume-Uni et la Russie bénéficient de la dissuasion nucléaire (défense ×1,1 sur leur territoire d’origine). Capitales : garnison triplée, recrutement accru et défense ×1,8. Quand une capitale est occupée, le pays a 6 semaines pour la reprendre ; sinon il capitule : ses zones passent à l’occupant, sauf celles qui reviennent à leur pays d’origine encore debout. Cliquez sur un pays (carte ou classement) pour négocier : alliance, pacte de non-agression, accord commercial, aide, ultimatum, incitation à attaquer un rival, rupture de traité. La réponse dépend de son attitude envers vous (qui baisse quand vous le conquérez), du rapport de force et de la présence d’un pays dominant. Des alliances se font et se défont, des événements aléatoires frappent les pays, et un pays qui dépasse 30 % du continent subit une coalition. Si le front se fige, toutes les alliances sont rompues. Terrain : montagnes et grands fleuves issus de Natural Earth, le reste est considéré comme plaine. Pour la Russie, seule la part européenne est prise en compte (environ 77 %). Les très petits États n’apparaissent pas, et les pays hors jeu sont en gris.</p>
+
+<div class="modal" id="m-pick" role="dialog" aria-modal="true" aria-labelledby="pk-t"><div class="card">
+<h2 id="pk-t">Choisissez votre pays</h2>
+<p>Vous orientez ses choix (posture, alliances, crises) ; les autres pays jouent seuls. Gagnez en prenant les capitales rivales, et protégez la vôtre.</p>
+<div class="pk-grid" id="pk-grid"></div>
+<div class="foot"><button id="pk-rnd">Pays au hasard</button><button id="pk-obs">Observer sans pays</button></div>
+</div></div>
+<div class="modal" id="m-dec" role="dialog" aria-modal="true" aria-labelledby="dc-t"><div class="card">
+<h2 id="dc-t"></h2><p id="dc-x"></p><div id="dc-b"></div>
+</div></div>
+<div class="modal" id="m-dip" role="dialog" aria-modal="true" aria-labelledby="dp-t"><div class="card">
+<h2 id="dp-t"></h2><p id="dp-i"></p><div class="dp-r" id="dp-r"></div><div id="dp-b"></div>
+<div class="foot"><button id="dp-x">Fermer</button></div>
+</div></div>
+<div class="modal" id="m-end" role="dialog" aria-modal="true" aria-labelledby="en-t"><div class="card">
+<h2 id="en-t"></h2><p id="en-x"></p><div id="en-b"></div>
+</div></div>
+
+<noscript>Cette simulation nécessite JavaScript.</noscript>
+<script src="data.js"></script>
+<script src="game.js"></script>
+</body>
+</html>
